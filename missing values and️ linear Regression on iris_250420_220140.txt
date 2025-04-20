@@ -47,7 +47,9 @@ df['Marks'] = np.where((df['Marks'] < lower_bound) | (df['Marks'] > uppe
 
 print("\nData after handling outliers:")
 print(df)
+
 OR
+
 import pandas as pd
 
 df = pd.read_csv("students_short.csv")
