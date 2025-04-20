@@ -31,5 +31,3 @@ plt.show()
 # Analyze cluster characteristics
 print("\nCluster Characteristics:")
 print(X.groupby('Cluster').mean())
-
-https://colab.research.google.com/drive/1bYIrRnEraEXt3srFqALFq2rEBIBzdyDs
