@@ -1,0 +1,57 @@
+To solve the queries using the VLOOKUP function in Excel, follow these steps for each one. Assume the dataset is in the range A2:E22, with headers in row 2:
+
+1. Find the Part Name for Part Number “A002”
+
+Formula:
+
+=VLOOKUP("A002", B3:E22, 2, FALSE) 
+
+Steps:
+
+• Place your cursor in a blank cell.
+
+• Enter the formula above.
+
+• It looks in column B for "A002" and returns the value from the 2nd column in the range, which is "alternator".
+
+2. Find the Supplier ID for the Part Name “Ball Joint”
+
+Formula:
+
+=VLOOKUP("Ball Joint", C3:E22, 1, FALSE) 
+
+BUT since "Supplier ID" is to the left of "Part Name", VLOOKUP cannot retrieve left-side values. Use INDEX & MATCH instead:
+
+=INDEX(A3:A22, MATCH("Ball Joint", C3:C22, 0)) 
+
+Result: SP318
+
+3. Find the Part Price for Part Name “muffler”
+
+Formula:
+
+=VLOOKUP("muffler", C3:E22, 2, FALSE) 
+
+Result: 1600
+
+4. Find the Status of Part Number “A008”
+
+Formula:
+
+=VLOOKUP("A008", B3:E22, 4, FALSE) 
+
+Result: stock
+
+Summary of VLOOKUP Use:
+QueryFormulaPart Name for Part Number “A002”
+=VLOOKUP("A002", B3:E22, 2, FALSE)
+
+Supplier ID for Part Name “Ball Joint”
+=INDEX(A3:A22, MATCH("Ball Joint", C3:C22, 0)) 
+(VLOOKUP not suitable)
+
+Part Price for Part Name “muffler” =VLOOKUP("muffler", C3:E22, 2, FALSE)
+
+Status of Part Number “A008” =VLOOKUP("A008", B3:E22, 4, FALSE) 
+
+Let me know if you want this in a downloadable Excel format!

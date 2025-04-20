@@ -1,0 +1,39 @@
+Perform Logistic Regression on the Iris dataset using Python/R to predict binary outcome. Evaluate model’s performance using classification metrics.
+Ans:
+# Import necessary libraries
+import pandas as pd
+import numpy as np
+from sklearn.datasets import load_iris
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+
+# Load Iris dataset
+iris = load_iris()
+X = pd.DataFrame(iris.data, columns=iris.feature_names)
+y = pd.Series(iris.target)
+
+# Convert to binary classification: 1 if setosa, else 0
+y_binary = (y == 0).astype(int)  # 0 = setosa
+
+# Split data into training and testing
+X_train, X_test, y_train, y_test = train_test_split(X, y_binary, test_size=0.3, random_state=42)
+
+# Train Logistic Regression model
+log_model = LogisticRegression()
+log_model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = log_model.predict(X_test)
+
+# Evaluate model
+print("Confusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+print("\nAccuracy Score:", accuracy_score(y_test, y_pred))
+https://jupyter.org/try-jupyter/notebooks/?path=Iris_Logistic_Regression.ipynb
+
+https://colab.research.google.com/drive/1yIGN3j564wz0iIuDEdW1jl2KmnVEV_Ok?authuser=0#scrollTo=JwheCCZn7uuS

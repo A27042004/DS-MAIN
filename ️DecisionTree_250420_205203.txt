@@ -1,0 +1,20 @@
+# Decision Tree Classification on Iris Dataset
+
+# Step 1: Import Libraries and Load Data
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier, export_text
+import pandas as pd
+
+# Load the Iris dataset
+iris = load_iris()
+df_iris = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+target = iris.target
+target_names = iris.target_names
+
+# Step 2: Train Decision Tree Classifier
+clf = DecisionTreeClassifier(random_state=0)
+clf.fit(df_iris, target)
+
+# Step 3: Get decision rules
+decision_rules = export_text(clf, feature_names=list(df_iris.columns))
+print(decision_rules)

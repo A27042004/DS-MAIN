@@ -1,0 +1,114 @@
+Create CSV file from given data. Read the data from CSV files into a 
+data frame. Perform data pre-processing tasks such as handling missing values and outliers.
+Ans:
+import pandas as pd
+import numpy as np
+
+# Step 1: Create the data
+data = {
+    'Rollno': [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    'Name': ['Sudin', 'Shaima', 'Raina', 'Paul', 'Rahul', 'Gopal', 'Yatin', 'Jim', 'Nima'],
+    'Age': [44, 46, 27, 38, 46, 45, 59, 36, 45],
+    'Marks': [47, 86, 45, 67, 45, 67, 45, 34, 32],
+    'Class': ['FY', 'SY', 'TY', 'SY', 'FY', 'TY', 'FY', 'FY', 'TY']
+}
+
+# Step 2: Create DataFrame
+df = pd.DataFrame(data)
+
+# Step 3: Save to CSV
+df.to_csv('students_short.csv', index=False)
+print("CSV file created: students_short.csv")
+
+# Step 4: Read from CSV
+df = pd.read_csv('students_short.csv')
+print("\nData read from CSV:")
+print(df)
+
+# Step 5: Check for missing values
+print("\nMissing values in each column:")
+print(df.isnull().sum())
+
+# Step 6: Detect outliers in 'Marks' using IQR
+Q1 = df['Marks'].quantile(0.25)
+Q3 = df['Marks'].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+outliers = df[(df['Marks'] < lower_bound) | (df['Marks'] > upper_bound)]
+print("\nOutliers in 'Marks':")
+print(outliers)
+
+# Optional: Handle outliers (e.g., replace with median)
+median_marks = df['Marks'].median()
+df['Marks'] = np.where((df['Marks'] < lower_bound) | (df['Marks'] > upper_bound),
+                       median_marks, df['Marks'])
+
+print("\nData after handling outliers:")
+print(df)
+OR
+import pandas as pd
+
+df = pd.read_csv("students_short.csv")
+print(df)
+# Check for missing values
+print(df.isnull().sum())
+
+# Optionally, fill or drop missing values
+df.fillna(method='ffill', inplace=True) # or df.dropna()
+
+# Detecting outliers using IQR method for 'Marks'
+Q1 = df['Marks'].quantile(0.25)
+Q3 = df['Marks'].quantile(0.75)
+IQR = Q3 - Q1
+
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+
+# Filter out the outliers
+outliers = df[(df['Marks'] < lower) | (df['Marks'] > upper)]
+print("Outliers in Marks:\n", outliers)
+
+# Optionally, remove them
+df_cleaned = df[(df['Marks'] >= lower) & (df['Marks'] <= upper)]
+
+https://jupyter.org/try-jupyter/notebooks/?path=data_science_practical.ipynb
+
+✅️Implement Linear Regression on the Iris dataset using Python/R for predicting petal.width on petal.length.
+Ans:
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+# Load the dataset
+iris = load_iris()
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+
+# Define input and target
+X = df[['petal length (cm)']]
+y = df['petal width (cm)']
+
+# Create and train the model
+model = LinearRegression()
+model.fit(X, y)
+
+# Make predictions
+y_pred = model.predict(X)
+
+# Print model coefficients
+print("Coefficient:", model.coef_[0])
+print("Intercept:", model.intercept_)
+
+# Plotting
+plt.scatter(X, y, color='blue', label='Actual Data')
+plt.plot(X, y_pred, color='red', label='Regression Line')
+plt.xlabel('Petal Length (cm)')
+plt.ylabel('Petal Width (cm)')
+plt.title('Linear Regression: Petal Width vs Petal Length')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+https://colab.research.google.com/drive/1yIGN3j564wz0iIuDEdW1jl2KmnVEV_Ok?authuser=0#scrollTo=JmHvuAFuC83P

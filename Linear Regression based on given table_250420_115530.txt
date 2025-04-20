@@ -1,0 +1,37 @@
+Perform Linear Regression on the following dataset in Python/R for predicting the salary of the person depending on his/her years of experience
+Ans:
+# Import necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Step 1: Create the dataset
+data = {
+    'YearsExperience': [2, 10, 4, 20, 8, 12, 22],
+    'Salary': [30000, 95000, 45000, 178000, 84000, 120000, 200000]
+}
+df = pd.DataFrame(data)
+
+# Step 2: Separate features and target
+X = df[['YearsExperience']]
+y = df['Salary']
+
+# Step 3: Fit Linear Regression Model
+model = LinearRegression()
+model.fit(X, y)
+
+# Step 4: Predict and visualize
+plt.scatter(X, y, color='blue', label='Actual')
+plt.plot(X, model.predict(X), color='red', label='Regression Line')
+plt.xlabel("Years of Experience")
+plt.ylabel("Salary")
+plt.title("Linear Regression: Experience vs Salary")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Step 5: Predict salary for 15 years of experience
+predicted_salary = model.predict([[15]])
+print(f"Predicted salary for 15 years of experience: ₹{predicted_salary[0]:.2f}")
+
+https://jupyter.org/try-jupyter/notebooks/?path=Salary_Linear_Regression.ipynb
